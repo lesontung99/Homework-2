@@ -74,16 +74,18 @@ class PolynomialRegression:
                 at first
         '''
         
-        Xex = PolynomialRegression.polyfeatures(self, X, degree = self.degree)
-        n,d = Xex.shape
-        Xex = np.concatenate((np.ones((n,1)),Xex), axis = 1)
+        X = PolynomialRegression.polyfeatures(self, X, degree = self.degree)
+        n,d = X.shape
         
-        mean = Xex.mean(axis=0)
-        std = Xex.std(axis=0)
-        X = (Xex - mean) / std
+        
+        mean = X.mean(axis=0)
+        std = X.std(axis=0)
+        
+        X = (X - mean) / std
         X = np.nan_to_num(X,True,0,9999,-9999)
         self.mean = mean
         self.std = std
+        X = np.concatenate((np.ones((n,1)),X), axis = 1)
         
         #I believe something is wrong with this. Are you sure it need to be standard scaler?
         
@@ -118,13 +120,13 @@ class PolynomialRegression:
         
         X = PolynomialRegression.polyfeatures(self, X, degree = self.degree)
         n,d = X.shape
-        Xex = np.concatenate((np.ones((n,1)),X), axis = 1)
         mean = self.mean
         std = self.std
-        X = (Xex - mean) / std
+        X = (X - mean) / std
+        X = np.concatenate((np.ones((n,1)),X), axis = 1)
+        
         X = np.nan_to_num(X,True,0,9999,-9999)
         newy = self.theta.dot(X.T)
-        newy = newy*std + mean
         #print(self.theta)
         
         # predict
