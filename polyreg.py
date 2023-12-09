@@ -21,6 +21,8 @@ class PolynomialRegression:
         self.degree = degree
         self.regLambda = regLambda
         self.theta = init_theta
+        self.mean = 0
+        self.std = 0
 
 
         #TODO
@@ -80,6 +82,8 @@ class PolynomialRegression:
         std = Xex.std(axis=0)
         X = (Xex - mean) / std
         X = np.nan_to_num(X,True,0,9999,-9999)
+        self.mean = mean
+        self.std = std
         
         #I believe something is wrong with this. Are you sure it need to be standard scaler?
         
@@ -115,8 +119,8 @@ class PolynomialRegression:
         X = PolynomialRegression.polyfeatures(self, X, degree = self.degree)
         n,d = X.shape
         Xex = np.concatenate((np.ones((n,1)),X), axis = 1)
-        mean = Xex.mean(axis=0)
-        std = Xex.std(axis=0)
+        mean = self.mean
+        std = self.std
         X = (Xex - mean) / std
         X = np.nan_to_num(X,True,0,9999,-9999)
         newy = self.theta.dot(X.T)
