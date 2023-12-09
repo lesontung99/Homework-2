@@ -124,7 +124,8 @@ class PolynomialRegression:
         X = (Xex - mean) / std
         X = np.nan_to_num(X,True,0,9999,-9999)
         newy = self.theta.dot(X.T)
-        print(self.theta)
+        newy = newy*std + mean
+        #print(self.theta)
         
         # predict
         return newy
