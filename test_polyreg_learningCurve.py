@@ -91,6 +91,7 @@ if __name__ == "__main__":
 
     X = allData[:, 0]
     y = allData[:, 1]
+    plt.figure(figsize=(12,7))
 
     # generate Learning curves for different params
     plt.subplot(2, 3, 1)
